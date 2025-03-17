@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { List } from "../List/List";
+import { Form } from "../Form/Form";
 import styles from "./Panel.module.css";
 
 export function Panel() {
@@ -15,6 +16,20 @@ export function Panel() {
       });
   }, []);
 
+  function handleFormSubmit(formData) {
+    fetch("http://localhost:3000/words", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setData((prevData) => [...prevData, res]);
+      });
+  }
+
   if (isLoading) {
     return <p>Ładowanie</p>;
   }
@@ -22,7 +37,8 @@ export function Panel() {
   return (
     <>
       <section className={styles.section}>
-        <List data={data}></List>
+        <Form onFormSubmit={handleFormSubmit} />
+        <List data={data} />
       </section>
     </>
   );
