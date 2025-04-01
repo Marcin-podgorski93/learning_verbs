@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { List } from "../List/List";
 import { Form } from "../Form/Form";
+import { FilterButton } from "../FilterButton/FilterButton";
 import styles from "./Panel.module.css";
 
 export function Panel() {
@@ -38,6 +39,10 @@ export function Panel() {
     });
   }
 
+  function handleFilterButton(category) {
+    console.log(category);
+  }
+
   if (isLoading) {
     return <p>Ładowanie</p>;
   }
@@ -46,6 +51,13 @@ export function Panel() {
     <>
       <section className={styles.section}>
         <Form onFormSubmit={handleFormSubmit} />
+        <div className={styles.filters}>
+          <FilterButton>Wszystkie</FilterButton>
+          <FilterButton onClick={() => handleFilterButton("noun")}>
+            Rzeczowniki
+          </FilterButton>
+          <FilterButton>Czasowniki</FilterButton>
+        </div>
         <List data={data} onDeleteItem={handleDeleteItem} />
       </section>
     </>
