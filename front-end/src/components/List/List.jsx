@@ -1,5 +1,6 @@
 import { Item } from "../Item/Item";
 import styles from "./List.module.css";
+
 export function List({ data, onDeleteItem }) {
   return (
     <ul className={styles.list}>
